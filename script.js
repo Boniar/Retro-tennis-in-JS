@@ -63,6 +63,13 @@ function table() {
         ctx.fillRect(cw/2 -lineWidth/2, linePosition,lineWidth,lineHeight)
     }
 }
+
+function playerPosition(){
+    
+}
+//Ruch paletką
+canvas.addEventListener('mousemove', playerPosition)
+
 //Funkcja zbiorcza
 function game() {
 
