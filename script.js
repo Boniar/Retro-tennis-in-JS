@@ -46,6 +46,10 @@ function ball() {
     if (ballY <= 0 || ballY + ballSize >= ch) {
         ballSpeedY = -ballSpeedY;
     }
+    
+    if (ballX <= 0 || ballX + ballSize >= cw) {
+        ballSpeedX = -ballSpeedX;
+    }
 }
 
 function table() {
