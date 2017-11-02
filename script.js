@@ -26,8 +26,8 @@ const lineWidth = 6;
 const lineHeight = 16;
 
 //Piłka - prędkość początkowa
-let ballSpeedX = 5;
-let ballSpeedY = 5;
+let ballSpeedX = 3;
+let ballSpeedY = 3;
 
 function player() {
     ctx.fillStyle = 'green'; ctx.fillRect(playerX,playerY,paddelWidth,paddelHeight);
