@@ -1,6 +1,5 @@
 //Pobranie obiektu Canvas z dokumentu i przypisanie go do zmiennej canvas
-const canvas =
-      document.querySelector('canvas');
+const canvas =document.querySelector('canvas');
 //Wykonanie metody na canvas,pozwalającej na min.rysowanie,zmianę właściwości i  przypisanie do nowej zmiennej "ctx"
 const ctx = canvas.getContext('2d')
 //Zmiana parametrów canvas i przypisanie do zmiennnych,skracanie kodu.
@@ -27,8 +26,8 @@ const lineWidth = 6;
 const lineHeight = 16;
 
 //Piłka - prędkość początkowa
-let ballSpeedX = 1;
-let ballSpeedY = 1;
+let ballSpeedX = 5;
+let ballSpeedY = 5;
 
 function player() {
     ctx.fillStyle = 'green'; ctx.fillRect(playerX,playerY,paddelWidth,paddelHeight);
@@ -42,7 +41,11 @@ function ball() {
     ctx.fillStyle = '#ffffff'; ctx.fillRect(ballX,ballY,ballSize,ballSize);
 
     ballX += ballSpeedX;
-    ballY += ballSpeedY;    
+    ballY += ballSpeedY;
+    //odbicie piłki po dotarciu do końca osi przy ujęciu wielkości piłki
+    if (ballY <= 0 || ballY + ballSize >= ch) {
+        ballSpeedY = -ballSpeedY;
+    }
 }
 
 function table() {
