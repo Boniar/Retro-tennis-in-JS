@@ -63,9 +63,21 @@ function table() {
         ctx.fillRect(cw/2 -lineWidth/2, linePosition,lineWidth,lineHeight)
     }
 }
+//Przypisanie położenia paletki do położenia myszki 
+topCanvas = canvas.offsetTop;
+console.log(topCanvas)
 
-function playerPosition(){
-    
+function playerPosition(event){
+    playerY = event.clientY - topCanvas - paddelHeight / 2;
+
+//Zabezpiecznie przed wyjeżdżaniem paletki poza canvas
+    if (playerY >= ch - paddelHeight) {
+        playerY = ch - paddelHeight
+    }
+
+    if (playerY <= 0) {
+        playerY = 0;
+    }
 }
 //Ruch paletką
 canvas.addEventListener('mousemove', playerPosition)
