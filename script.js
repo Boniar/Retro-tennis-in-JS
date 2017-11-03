@@ -45,10 +45,12 @@ function ball() {
     //odbicie piłki po dotarciu do końca osi przy ujęciu wielkości piłki
     if (ballY <= 0 || ballY + ballSize >= ch) {
         ballSpeedY = -ballSpeedY;
+        speedUp();
     }
     
     if (ballX <= 0 || ballX + ballSize >= cw) {
         ballSpeedX = -ballSpeedX;
+        speedUp();
     }
 }
 
@@ -82,6 +84,27 @@ function playerPosition(event){
 }
 //Ruch paletką
 canvas.addEventListener('mousemove', playerPosition)
+
+//Przyśpieszanie piłki
+function speedUp() {
+    //po osi X
+    if (ballSpeedX > 0 && ballSpeedX < 155) {
+        ballSpeedX += 1;
+    }
+    else if (ballSpeedX < 0 && ballSpeedX > -16){ 
+        ballSpeedX -= 1;
+    }
+
+    //po osi Y
+    if (ballSpeedY > 0 && ballSpeedY < 155) {
+        ballSpeedY += 1;
+    }
+    else if (ballSpeedY < 0 && ballSpeedY > -16){ 
+        ballSpeedY -= 1;
+    }
+
+}
+
 
 //Funkcja zbiorcza
 function game() {
