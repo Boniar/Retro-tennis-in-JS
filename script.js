@@ -78,6 +78,7 @@ function playerPosition(event){
     if (playerY <= 0) {
         playerY = 0;
     }
+    aiY = playerY;
 }
 //Ruch paletką
 canvas.addEventListener('mousemove', playerPosition)
