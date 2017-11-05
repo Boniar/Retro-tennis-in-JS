@@ -72,15 +72,15 @@ console.log(topCanvas)
 function playerPosition(event){
     playerY = event.clientY - topCanvas - paddelHeight / 2;
 
-//Zabezpiecznie przed wyjeżdżaniem paletki poza canvas
+//Zabezpiecznie przed wyjeżdżaniem paletki poza canvas - na dole
     if (playerY >= ch - paddelHeight) {
         playerY = ch - paddelHeight
     }
-
+//Zabezpiecznie przed wyjeżdżaniem paletki poza canvas - na górze
     if (playerY <= 0) {
         playerY = 0;
     }
-    aiY = playerY;
+   // aiY = playerY;
 }
 //Ruch paletką
 canvas.addEventListener('mousemove', playerPosition)
@@ -88,7 +88,7 @@ canvas.addEventListener('mousemove', playerPosition)
 //Przyśpieszanie piłki
 function speedUp() {
     //po osi X
-    if (ballSpeedX > 0 && ballSpeedX < 155) {
+    if (ballSpeedX > 0 && ballSpeedX < 18) {
         ballSpeedX += 1;
     }
     else if (ballSpeedX < 0 && ballSpeedX > -16){ 
@@ -96,13 +96,50 @@ function speedUp() {
     }
 
     //po osi Y
-    if (ballSpeedY > 0 && ballSpeedY < 155) {
+    if (ballSpeedY > 0 && ballSpeedY < 16) {
         ballSpeedY += 1;
     }
     else if (ballSpeedY < 0 && ballSpeedY > -16){ 
         ballSpeedY -= 1;
     }
 
+}
+
+//AI
+
+//Wariacja,korzystająca z dwóch elementów - pozycji piłki i położenia paletki wzgl.osi Y w canvas.
+function aiPosition() {
+
+    //Stała ze współrzędnymi środka rakietki.
+    const middlePaddel = aiY + paddelHeight / 2;
+    
+    //Stała ze współrzędnymi środka piłki
+    const middleBall = ballY + ballSize / 2;
+    
+    //instr.sprawdzająca czy piłka znajduje się po prawej połowie canvasu o wym.0-1000
+    if (ballX > 500) {
+        //Warunek I - odległość środka piłki od środka paletki
+        if (middlePaddel - middleBall > 200) {
+            aiY -= 24;//ruch paletki w stronę piłki - wartość prędkości poruszania
+        }   
+        else if (middlePaddel - middleBall > 50) {aiY -= 10;     }
+        //To samo j/w ale w sytuacji gdy piłka jest poniżej paletki
+        else if (middlePaddel - middleBall < -200){
+            aiY +=24
+        }
+        else if (middlePaddel - middleBall < -50){
+            aiY += 10;
+        }
+    }
+    //Instrukcja gdy piłka jest >100 && >=500 od lewej krawędzi czyli lewej strony boiska
+    if (ballX <= 500 && ballX > 100) {
+        if (middlePaddel - middleBall >100){
+            aiY -= 3;
+        }
+    if (middlePaddel - middleBall < -100) {
+            aiY += 3;
+        }    
+    }
 }
 
 
@@ -113,6 +150,7 @@ function game() {
     ball()
     player()
     ai()
+    aiPosition()
 }
 //Wywołanie funkcji zbiorczej z interwałem
-setInterval(game, 25)
+setInterval(game, 1000 / 60)
